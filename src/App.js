@@ -1,76 +1,37 @@
 import React, { Component } from 'react';
 import './App.css';
-import Keyboard from "./components/Keyboard";
+import Calculator from "./components/Calculator";
+import History from "./components/History";
+import FlashMessage from "./components/FlashMessage";
 
 class App extends Component {
-    constructor() {
-        super()
 
-        this.keys = ['7', '8', '9', '+', '4', '5', '6', '-', '1', '2', '3', '*', '0', '.', '%', '/']
+    constructor() {
+        super();
 
         this.state = {
-            result: '',
-            inputValue: '',
-            error: ''
+            message: {
+                type: '',
+                text: '',
+            }
         }
     }
 
-    keyEvent(key) {
-        if (key === 'Enter') {
-            this.calculate()
-        }
-        else if (key === 'Backspace') {
-            this.removeLastChar()
-        }
-        else if (this.keys.includes(key)) {
-            this.addToInput(key)
-        }
-    }
-
-    addToInput(value) {
-        this.setState((prevState) => ({
-            inputValue: prevState.inputValue + value
-        }))
-    }
-
-    clearInput() {
-      this.setState({ inputValue: '' })
-    }
-
-    removeLastChar() {
-        this.setState((prevState) => ({
-            inputValue:  prevState.inputValue.slice(0, -1)
-        }))
-    }
-
-    calculate() {
-        try {
-            this.setState({result: eval(this.state.inputValue) })
-        }
-        catch (e) {
-            this.setState({error: 'Une erreur est survenue lors de votre calcul' })
-        }
-    }
+    setMessage = (type, text) => {
+        this.setState({ message: { type, text } })
+    };
 
     render() {
         return (
-            <div id='calculator'>
-                <div id='result'>{this.state.result}</div>
+            <div id='app'>
+                <Calculator setMessage={this.setMessage} />
 
-                <input type='text'
-                       value={this.state.inputValue}
-                       onKeyDown={(e) => this.keyEvent(e.key)}
-                       onChange={() => {}} />
+                {/*<History />*/}
 
-                <Keyboard keys={this.keys}
-                          addToInput={this.addToInput.bind(this)}
-                          clearInput={this.clearInput.bind(this)}
-                          calculate={this.calculate.bind(this)}
-                          removeLastChar={this.removeLastChar.bind(this)} />
-
-                <div id='error'>{this.state.error}</div>
+                <FlashMessage message={this.state.message}
+                              setMessage={this.setMessage} />
             </div>
-        );
+        )
     }
 }
 
