@@ -35,6 +35,7 @@
     #history::-webkit-scrollbar
     {
         width: 5px;
+        height: 5px;
         background-color: #F7F4F4;
     }
     #history::-webkit-scrollbar-thumb
@@ -49,6 +50,18 @@
     color: #3755b0;
     cursor: pointer;
     float: right;
+}
+
+.item-history {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    min-height: 10px;
+    padding: 15px 0;
+    color: grey;
+}
+.items .item-history:first-child {
+    color: black;
 }
 
 #result {
@@ -88,18 +101,6 @@ input {
 #keyboard button#btn-equal {
     width: 50%;
 }
-
-.item-history {
-    display: flex;
-    justify-content: space-between;
-    height: 10px;
-    min-height: 10px;
-    padding: 15px 0;
-    color: grey;
-}
-    .items .item-history:first-child {
-        color: black;
-    }
 
 #message {
     display: flex;
