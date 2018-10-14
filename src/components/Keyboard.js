@@ -8,7 +8,7 @@ class Keyboard extends Component {
                 <div>
                     {
                         this.props.keys.map(keyValue =>
-                            <button key={keyValue} onClick={() => this.props.addToInput(keyValue)}>
+                            <button key={keyValue} onClick={() => this.props.inputMethods.addToInput(keyValue)}>
                                 {keyValue}
                             </button>
                         )
@@ -16,8 +16,8 @@ class Keyboard extends Component {
                 </div>
                 <div id='actions'>
                     <button onClick={() => this.props.calculate()} id='btn-equal'>=</button>
-                    <button onClick={() => this.props.removeLastChar()}>CE</button>
-                    <button onClick={() => this.props.clearInput()}>AC</button>
+                    <button onClick={() => this.props.inputMethods.removeLastChar()}>CE</button>
+                    <button onClick={() => this.props.inputMethods.clearInput()}>AC</button>
                 </div>
             </div>
         );

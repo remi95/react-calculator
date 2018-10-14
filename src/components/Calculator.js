@@ -18,41 +18,45 @@ class Calculator extends Component {
             this.calculate()
         }
         else if (key === 'Backspace') {
-            this.removeLastChar()
+            this.inputMethods.removeLastChar()
         }
         else if (this.keys.includes(key)) {
-            this.addToInput(key)
+            this.inputMethods.addToInput(key)
         }
-    }
+    };
 
-    addToInput(value) {
-        this.setState((prevState) => ({
-            inputValue: prevState.inputValue + value
-        }))
-    }
+    inputMethods = {
+        addToInput: (value) => {
+            this.setState((prevState) => ({
+                inputValue: prevState.inputValue + value
+            }))
+        },
 
-    clearInput = () => {
-        this.setState({ inputValue: '' })
-    }
+        removeLastChar: () => {
+            this.setState((prevState) => ({
+                inputValue: prevState.inputValue.slice(0, -1)
+            }))
+        },
 
-    removeLastChar = () => {
-        this.setState((prevState) => ({
-            inputValue:  prevState.inputValue.slice(0, -1)
-        }))
-    }
+        clearInput: () => {
+            this.setState({inputValue: ''})
+        },
+    };
 
     calculate = () => {
         try {
-            let result = eval(this.state.inputValue).toString()
+            let result = eval(this.state.inputValue).toString();
+            this.props.addHistoryItem(this.state.inputValue, result);
+
             this.setState({
                 result: result,
                 inputValue: result
             })
         }
-        catch (e) {
+        catch (error) {
             this.props.setMessage('error', 'Une erreur est survenue lors de votre calcul')
         }
-    }
+    };
 
     render() {
         return (
@@ -65,10 +69,8 @@ class Calculator extends Component {
                        onChange={() => {}} />
 
                 <Keyboard keys={this.keys}
-                          addToInput={this.addToInput.bind(this)}
-                          clearInput={this.clearInput}
-                          calculate={this.calculate}
-                          removeLastChar={this.removeLastChar} />
+                          inputMethods={this.inputMethods}
+                          calculate={this.calculate} />
             </div>
         );
     }

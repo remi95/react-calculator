@@ -1,13 +1,21 @@
 .text-center {
     text-align: center;
 }
+.flex-center {
+    display: flex;
+    justify-content: center;
+}
 
-#calculator {
+#app {
+    margin-top: 50px;
+}
+
+#calculator,
+#history {
     display: flex;
     flex-direction: column;
     width: 200px;
-    margin: auto;
-    margin-top: 25px;
+    height: 360px;
     padding: 25px;
     border: 5px solid #3f51b5;
     -webkit-border-radius: 10px;
@@ -15,9 +23,38 @@
     border-radius: 10px;
 }
 
+#history {
+    overflow-y: auto;
+}
+    #history::-webkit-scrollbar-track
+    {
+        box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        background-color: #F7F4F4;
+    }
+    #history::-webkit-scrollbar
+    {
+        width: 5px;
+        background-color: #F7F4F4;
+    }
+    #history::-webkit-scrollbar-thumb
+    {
+        border-radius: 10px;
+        box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+        background-color: #bfbee8;
+    }
+    
+#history .close {
+    width: 23px;
+    color: #3755b0;
+    cursor: pointer;
+    float: right;
+}
+
 #result {
     height: 50px;
     text-align: right;
+    font-size: 20px;
 }
 
 input {
@@ -52,6 +89,18 @@ input {
     width: 50%;
 }
 
+.item-history {
+    display: flex;
+    justify-content: space-between;
+    height: 10px;
+    min-height: 10px;
+    padding: 15px 0;
+    color: grey;
+}
+    .items .item-history:first-child {
+        color: black;
+    }
+
 #message {
     display: flex;
     justify-content: space-between;
@@ -66,7 +115,7 @@ input {
     -moz-border-radius: 5px;
     border-radius: 5px;
     opacity: 0;
-    transition: opacity .5s;
+    transition: opacity .3s;
 }
     #message.error,
     #message.warning,
@@ -87,6 +136,6 @@ input {
         background-color: rgba(111, 142, 255, 0.4);
     }
     
-#message #close:hover {
+#message .close:hover {
     cursor: pointer;
 }

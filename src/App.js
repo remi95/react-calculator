@@ -13,7 +13,8 @@ class App extends Component {
             message: {
                 type: '',
                 text: '',
-            }
+            },
+            history: [],
         }
     }
 
@@ -21,12 +22,26 @@ class App extends Component {
         this.setState({ message: { type, text } })
     };
 
+    addHistoryItem = (operation, result) => {
+        this.setState((prevState) => ({
+            history: [{ operation, result }].concat(prevState.history)
+        }))
+    };
+
+    clearHistory = () => {
+        this.setState({ history: [] })
+    };
+
     render() {
         return (
             <div id='app'>
-                <Calculator setMessage={this.setMessage} />
+                <div className="flex-center">
+                    <Calculator setMessage={this.setMessage}
+                                addHistoryItem={this.addHistoryItem} />
 
-                {/*<History />*/}
+                    <History history={this.state.history}
+                             clearHistory={this.clearHistory} />
+                </div>
 
                 <FlashMessage message={this.state.message}
                               setMessage={this.setMessage} />
