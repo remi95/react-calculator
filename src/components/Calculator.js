@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Keyboard from "./Keyboard";
+import Screen from "./Screen";
 
 class Calculator extends Component {
     constructor() {
@@ -61,12 +62,8 @@ class Calculator extends Component {
     render() {
         return (
             <div id='calculator'>
-                <div id='result'>{this.state.result}</div>
-
-                <input type='text'
-                       value={this.state.inputValue}
-                       onKeyDown={(e) => this.keyEvent(e.key)}
-                       onChange={() => {}} />
+                <Screen state={this.state}
+                        keyEvent={this.keyEvent} />
 
                 <Keyboard keys={this.keys}
                           inputMethods={this.inputMethods}
